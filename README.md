@@ -4,13 +4,22 @@ A Python data pipeline that extracts music data from the Spotify Web API, transf
 
 ## What it does
 
-1. **Extract** — Fetches top tracks and audio features (danceability, energy, valence, tempo, etc.) for a configurable list of artists via the Spotify API.
+1. **Extract** — Fetches tracks for a configurable list of artists via the Spotify Search API.
 2. **Transform** — Cleans the raw data: parses dates, removes duplicates, handles missing values, converts units, and saves as CSV and Parquet.
-3. **Analyze** — Generates summary statistics and charts: top tracks by popularity, danceability comparison across artists, and energy vs. valence scatter plots.
+3. **Analyze** — Generates summary statistics and charts: top tracks by popularity, average popularity by artist, and tracks per release year.
+
+## Sample results
+
+### Top 10 Most Popular Tracks
+![Top Tracks](data/processed/top_tracks.png)
+
+### Average Popularity by Artist
+![Popularity by Artist](data/processed/popularity_by_artist.png)
+
+### Tracks by Release Year
+![Tracks per Year](data/processed/tracks_per_year.png)
 
 ## Project structure
-
-```
 spotify-music-pipeline/
 ├── main.py                  # Runs the full pipeline
 ├── src/
@@ -20,18 +29,17 @@ spotify-music-pipeline/
 │   └── analyze.py           # Step 3: analysis and visualizations
 ├── data/
 │   ├── raw/                 # Raw JSON from API (git-ignored)
-│   └── processed/           # Clean CSV/Parquet + charts (git-ignored)
+│   └── processed/           # Clean CSV/Parquet + charts
+├── tests/                   # Unit tests
 ├── requirements.txt
 ├── .env.example             # Template for API credentials
 └── .gitignore
-```
-
 ## Setup
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/spotify-music-pipeline.git
+git clone https://github.com/anaalkmim/spotify-music-pipeline.git
 cd spotify-music-pipeline
 ```
 
@@ -63,28 +71,24 @@ cp .env.example .env
 python main.py
 ```
 
+### 6. Run tests
+
+```bash
+python -m pytest tests/ -v
+```
+
 ## Customization
 
 Edit the `ARTISTS` list in `src/extract.py` to collect data for any artists you want:
 
 ```python
 ARTISTS = [
-    "Kendrick Lamar",
-    "Beyoncé",
-    "Arctic Monkeys",
+    "Nothing But Thieves",
+    "Pink Floyd",
+    "Foo Fighters",
     # Add your favorites here
 ]
 ```
-
-## Sample output
-
-After running the pipeline, you'll find in `data/processed/`:
-
-- `tracks_clean.csv` — Clean dataset with all tracks and audio features
-- `tracks_clean.parquet` — Same data in Parquet format
-- `top_tracks.png` — Bar chart of the 10 most popular tracks
-- `danceability_by_artist.png` — Average danceability by artist
-- `energy_vs_valence.png` — Scatter plot of energy vs. valence (positivity)
 
 ## Tech stack
 
@@ -93,6 +97,7 @@ After running the pipeline, you'll find in `data/processed/`:
 - **pandas** — Data manipulation and cleaning
 - **matplotlib** — Data visualization
 - **python-dotenv** — Environment variable management
+- **pytest** — Testing
 
 ## License
 

@@ -10,14 +10,16 @@ import os
 from src.spotify_client import get_access_token, search_artist, search_tracks
 
 ARTISTS = [
-    "Kendrick Lamar",
-    "Beyoncé",
-    "Arctic Monkeys",
-    "Bad Bunny",
-    "Anitta",
-    "Radiohead",
-    "Dua Lipa",
-    "Tyler, The Creator",
+    "Nothing But Thieves",
+    "Pink Floyd",
+    "Foo Fighters",
+    "Adele",
+    "Billie Eilish",
+    "Ren",
+    "Lady Gaga",
+    "The Black Keys",
+    "Slipknot",
+    "Twenty One Pilots",
 ]
 
 RAW_DIR = "data/raw"
