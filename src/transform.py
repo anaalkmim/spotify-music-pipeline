@@ -38,8 +38,8 @@ def transform():
     # Remove duplicate tracks (same track_id)
     df = df.drop_duplicates(subset=["track_id"])
 
-    # Sort by artist and then by popularity descending
-    df = df.sort_values(["artist_name", "popularity"], ascending=[True, False])
+    # Sort by artist name, then track name
+    df = df.sort_values(["artist_name", "track_name"])
     df = df.reset_index(drop=True)
 
     # Save as CSV

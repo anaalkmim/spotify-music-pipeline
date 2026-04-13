@@ -15,7 +15,6 @@ ARTISTS = [
     "Foo Fighters",
     "Adele",
     "Billie Eilish",
-    "Ren",
     "Lady Gaga",
     "The Black Keys",
     "Slipknot",
@@ -31,6 +30,7 @@ def extract():
 
     token = get_access_token()
     all_tracks = []
+    seen_ids = set()
 
     for artist_name in ARTISTS:
         print(f"Fetching data for: {artist_name}")
@@ -43,6 +43,10 @@ def extract():
         tracks = search_tracks(token, artist_name, limit=10)
 
         for track in tracks:
+            if track["id"] in seen_ids:
+                continue
+            seen_ids.add(track["id"])
+
             all_tracks.append(
                 {
                     "artist_name": artist["name"],
@@ -51,7 +55,6 @@ def extract():
                     "track_id": track["id"],
                     "album_name": track["album"]["name"],
                     "release_date": track["album"].get("release_date", ""),
-                    "popularity": track.get("popularity", 0),
                     "duration_ms": track.get("duration_ms", 0),
                     "explicit": track.get("explicit", False),
                 }
